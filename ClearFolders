@@ -1,0 +1,190 @@
+##Delete files##
+
+using System;
+using System.IO;
+
+namespace DeleteFile
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            
+            FileDelete();
+        }
+        public static void FileDelete()
+        {
+            string rootPath = @"C:\Users\opilane\Samples\PlayerTwo";
+            string fileName = "ball.txt";
+
+            if (File.Exists(Path.Combine(rootPath, fileName)))
+            {
+                File.Delete(Path.Combine(rootPath, fileName));
+                Console.WriteLine("Deleted");
+
+            } else
+            {
+                Console.WriteLine("Not exists");
+            }
+        }
+
+        
+
+    }
+}
+## MoveFiles##
+
+using System;
+using System.IO;
+
+namespace MoveFile
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            MoveFile();
+        }
+        public static void MoveFile()
+        {
+            string sourceDirectory = @"C: \Users\opilane\Samples\PlayerOne";
+            string destinationPath = @"C:\Users\opilane\Samples\PlayerTwo";
+            string fileName = "ball.txt";
+
+            File.Move(Path.Combine(sourceDirectory, fileName), Path.Combine(destinationPath, fileName));
+        }
+    }
+}
+##Create File##
+
+using System;
+using System.IO;
+
+namespace CreateFile2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("enter file name");
+            string userInput = Console.ReadLine();
+            CreateUserFile(userInput);
+            CreateFileWithExtension(userInput);
+        }
+        public static void CreateNewFile()
+        {
+            string rootPath = @"C:\Users\opilane\Samples\PlayerOne";
+            string fileName = "bail.txt";
+            File.Create(Path.Combine(rootPath, fileName));
+
+
+        }
+        public static void CreateUserFile(string fileName)
+        {
+            string rootPath = @"C:\Users\opilane\Samples\PlayerTwo";
+            
+            File.Create(Path.Combine(rootPath, fileName));
+        }
+        public static void CreateFileWithExtension(string fileName)
+        {
+            string rootPath = @"C:\Users\opilane\Samples\PlayerTwo";
+            string fullFileName = $"{fileName}.txt";
+            File.Create(Path.Combine(rootPath, fullFileName));
+        }
+    }
+
+}
+## Create Direcotry ## 
+
+using System;
+using System.IO;
+
+namespace CreateDirectory
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            CreateFolderOne();
+            CreateFolderTwo();
+        }
+        public static void CreateFolderOne()
+        {
+            string rootPath = @"C:\Users\opilane\Samples";
+            string folderName = "PlayerOne";
+            string fullFolderPath = Path.Combine(rootPath, folderName);
+            Console.WriteLine(fullFolderPath);
+            if (Directory.Exists(fullFolderPath))
+            {
+                Console.WriteLine("The Folder already exist");
+            }
+            else
+            {
+                Directory.CreateDirectory(fullFolderPath);
+            }
+
+        }
+        public static void CreateFolderTwo()
+        {
+            string rootPath = @"C:\Users\opilane\Samples";
+            string folderName = "PlayerTwo";
+            string fullFolderPath = Path.Combine(rootPath, folderName);
+            Console.WriteLine(fullFolderPath);
+            if (Directory.Exists(fullFolderPath))
+            {
+                Console.WriteLine("The Folder already exist");
+            }
+            else
+            {
+                Directory.CreateDirectory(fullFolderPath);
+            }
+        }
+    }
+}
+##Clear Folders##
+using System;
+using System.IO;
+
+namespace ClearFolder
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            string rootPath = @"C:\Users\opilane\Sample";
+            DeleteAllFiles();
+            DirectoryInfo rootDirectory = new DirectoryInfo(rootPath);
+            foreach (DirectoryInfo dir in rootDirectory.GetDirectories())
+            {
+                DeleteAllfolders(dir.FullName, true);
+            }
+
+        }
+        // deleting all files function
+
+        public static void DeleteAllFiles()
+        {
+            string rootPath = @"C:\Users\opilane\Sample";
+            DirectoryInfo directory = new DirectoryInfo(rootPath);
+
+            foreach (FileInfo file in directory.GetFiles())
+            {
+                file.Delete();
+            }
+
+
+        }
+        public static void DeleteAllfolders(string DirectoryName, bool ifExists)
+        {
+            if (Directory.Exists(DirectoryName))
+            {
+                Directory.Delete(DirectoryName, true);
+
+            }
+            else if (ifExists)
+            {
+                throw new SystemException("No directory to delete");
+            }
+        }
+}   }
